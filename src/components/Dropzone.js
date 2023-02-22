@@ -6,7 +6,7 @@ function Dropzone({ open }) {
     const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
       useDropzone({
         accept: {
-          'pfd/docx': ['.docx', '.pdf']
+          'pfd': ['.pdf']
         },
         // can only upload 1 file at a time
         maxFiles: 1
@@ -45,7 +45,7 @@ function Dropzone({ open }) {
             Drag & drop file here or click to select file
           </button>
           <br />
-          <i>(only accepts *.docx or *.pdf files)</i>
+          <i>(only accepts *.pdf files)</i>
         </div>
         <aside>
           <br />
