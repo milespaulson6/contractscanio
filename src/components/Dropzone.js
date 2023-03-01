@@ -6,7 +6,7 @@ function Dropzone({ open }) {
     const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
       useDropzone({
         accept: {
-          'pfd': ['.pdf']
+          'application/pdf': ['.pdf']
         },
         // can only upload 1 file at a time
         maxFiles: 1
