@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom'
 import {IoIosFingerPrint, IoIosArrowRoundBack} from "react-icons/io";
 import Dropzone from './Dropzone';
 import Button from './Button';
-import { Dropdown } from 'bootstrap';
+//import { Dropdown } from 'bootstrap';
 
 const GenerateSummary = () => {
 
     const options = [
+        { label: 'Select one', value: 'Select one' },
         { label: 'Employment Offer', value: 'Employment Offer' },     
         { label: 'Rental Contract', value: 'Rental Contract' },     
-        { label: 'Mortgage Agreement', value: 'Mortgage Agreement' },     
+        { label: 'Mortgage Agreement', value: 'Mortgage Agreement' },
+        { label: 'Lease Agreement', value: 'Lease Agreement' }, 
+        { label: 'Other', value: 'Other' },      
     ];
 
     const [value, setValue] = React.useState('fruit');
@@ -39,9 +42,10 @@ const GenerateSummary = () => {
             </div>
             <div className="text-center">
                 <h2 style={{ marginTop: "10px", marginBottom: "20px", color: "#607d8b" }}>Generate contract summary here</h2>
-                <p><IoIosFingerPrint className="textColor" /> Upload a file below. Rest assured, contractscan.io 
-                    doesn't store any information uploaded to our site.</p>
-                
+                <br />
+                <h5><IoIosFingerPrint className="textColor" /> Upload a file below. Rest assured, contractscan.io 
+                    doesn't store any information uploaded to our site.</h5>
+                <br />
                 <div>
                     <Dropzone />
                 </div>
