@@ -10,8 +10,8 @@
     "axios": "^1.2.5",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
+    "mdb-react-ui-kit": "^5.1.0",
     "react": "^18.2.0",
-    "react-aws-s3": "^1.5.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-dropzone-s3-uploader": "^1.1.0",
@@ -45,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^5.75.0"
   }
 }

@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import GenerateSummary from './components/GenerateSummary';
 import PresentSummary from './components/PresentSummary';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -25,7 +26,7 @@ const App = () => {
         {/* Add present summary component */}
         <Route path='/PresentSummary' element = {<PresentSummary />} />
       </Routes>   
-
+      <Footer />
     </Router>
   );
 }

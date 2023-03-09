@@ -68,8 +68,8 @@ const GenerateSummary = () => {
                 <br />
                 <Link to="/PresentSummary">
                         <Button color='#abd4ff' text='Generate Summary' />
-                    </Link> 
-
+                </Link> 
+                <div style={{ marginBottom: "200px" }}></div>
             </div>
         </div>
     )

@@ -4,20 +4,7 @@ import {IoMdCloudUpload, IoIosClose} from "react-icons/io";
 
 import {uploadFile} from 'react-s3';
 import S3FileUpload from 'react-s3';
-import S3 from 'react-aws-s3';
 import AWS from 'aws-sdk'
-// import {
-//   getSignedUrl,
-//   S3RequestPresigner,
-// } from "@aws-sdk/s3-request-presigner";
-// import { parseUrl } from "@aws-sdk/url-parser";
-// import { formatUrl } from "@aws-sdk/util-format-url";
-// import { Hash } from "@aws-sdk/hash-node";
-
-https://contractscaniobucket.s3.amazonaws.com/contracts/
-
-//import {Buffer} from 'buffer';
-window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const config = {
   bucketName: 'contractscaniobucket',
@@ -27,8 +14,6 @@ const config = {
   secretAccessKey: 'ukuJ1STwb/gilrMB7iT+3/eoJIsvy7EQFKG+ydS6',
   s3Url: 'https://contractscaniobucket.s3.amazonaws.com/'
 }
-
-
 
 function Dropzone({ open }) {
     const { getRootProps, getInputProps, isDragActive, acceptedFiles } =

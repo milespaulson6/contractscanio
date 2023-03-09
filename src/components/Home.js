@@ -20,33 +20,25 @@ const Home = () => {
           <br />
           <br />
           <img src={documentimg} alt="document" />
-          <br />
-          <br />
-          <br />
+          <div style={{ marginBottom: "100px" }}></div>
         </div>
         <div>
           <h4><IoIosFingerPrint className="textColor" /> Presents summary information in a page-by-page format</h4>
           <br />
           <img className="image" src={summaryimg} alt="summary" />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+          <div style={{ marginBottom: "120px" }}></div>
         </div>
         <div>
           <h4><IoIosFingerPrint className="textColor" /> Gives you the confidence in understanding a document before you sign</h4>
           <br />
           <img src={handshakeimg} alt="handshake" />
-          <br />
-
+          <div style={{ marginBottom: "25px" }}></div>
         </div>
         <br />
         <Link to="/GenerateSummary">
           <Button color='#abd4ff' text='Get started' />
         </Link> 
-        <br />
-        <br />
+        <div style={{ marginBottom: "200px" }}></div>
       </div>
     </div>
   );
