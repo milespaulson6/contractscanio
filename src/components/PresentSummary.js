@@ -15,10 +15,18 @@ const config = {
     //s3Url: 'https://contractscaniobucket.s3.amazonaws.com/'
   }
 
+//   const filename = 'test.pdf';
 class PresentSummary extends Component {
     upload(e) {
-        console.log(e.target.files[0]);
-        ReactS3.uploadFile(e.target.files[0], config)
+        var file = e.target.files || e.dataTransfer.files;
+        if (!file.length)
+        {
+            return;
+        }
+        const formFile = file[0];
+        console.log(formFile);
+        //console.log(e.target.files[0]);
+        ReactS3.uploadFile(formFile, config)
             .then((data)=> {
                 console.log(data);
             })
@@ -40,7 +48,7 @@ class PresentSummary extends Component {
                     
                     {/* TODO: add summary stuff here */}
                     {/* <div>
-                        <input type="file" onChange={this.upload} />
+                        <input accept="application/pdf" type="file" onChange={(event) => {this.upload(event)}} />
                     </div>                   */}
                     <div style={{ marginBottom: "200px" }}></div>
                 </div>
@@ -50,3 +58,6 @@ class PresentSummary extends Component {
 }
 
 export default PresentSummary
+
+
+//react-pdf

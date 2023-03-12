@@ -14,6 +14,10 @@ const Header = () => {
           <Link to="/GenerateSummary" className="navLink">
             <h5 style={{ marginRight: "40px", marginTop: "0px", marginBottom: "15px"}}>Generate Summary</h5>
           </Link>
+
+          <Link to="/FileUpload" className="navLink">
+            <h5 style={{ marginRight: "40px", marginTop: "0px", marginBottom: "15px"}}>File Upload</h5>
+          </Link>
         </div>
       </>
     );

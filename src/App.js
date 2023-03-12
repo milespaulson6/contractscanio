@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import GenerateSummary from './components/GenerateSummary';
 import PresentSummary from './components/PresentSummary';
+import FileUpload from './components/FileUpload';
 import Footer from './components/Footer';
 
 const App = () => {
@@ -25,6 +26,9 @@ const App = () => {
 
         {/* Add present summary component */}
         <Route path='/PresentSummary' element = {<PresentSummary />} />
+
+        {/* Add test summary component */}
+        <Route path='/FileUpload' element = {<FileUpload />} />
       </Routes>   
       <Footer />
     </Router>
