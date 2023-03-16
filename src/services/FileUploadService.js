@@ -5,7 +5,7 @@ export const uploadFile = (file, onUploadProgress) => {
 
   formData.append("file", file);
 
-  return http.post("/upload", formData, {
+  return http.post("/api/contracts", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

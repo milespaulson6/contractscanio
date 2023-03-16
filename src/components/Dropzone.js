@@ -14,17 +14,20 @@ function Dropzone({ open }) {
         maxFiles: 1,
         state: {
           file: "",
+          name: "",
           contractType: "",
         }
       });
 
-    const addFile = e => {
-        e.preventDefault();
-        axios.post(API_URL, this.state).then(() => {
-          this.props.resetState();
-          this.props.toggle();
-        });
-    };
+    // const addFile = (file) => () => {
+    //     e.preventDefault();
+    //     this.state.file = file
+    //     this.state.name = file.name
+    //     axios.post(API_URL, this.state).then(() => {
+    //       this.props.resetState();
+    //       this.props.toggle();
+    //     });
+    // };
       
     // add ability to remove file
     const removeFile = (file) => () => {
@@ -67,7 +70,7 @@ function Dropzone({ open }) {
             <strong><ul>{files}</ul></strong>
           </aside>
         </div>
-        <button className="btn" onClick={addFile(files[0])}>Save file</button>
+        {/* <button className="btn" onClick={addFile(files[0])}>Save file</button> */}
 
       </div>
     );

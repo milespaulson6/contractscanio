@@ -41,11 +41,11 @@ const UploadFiles = () => {
       setSelectedFiles(undefined);
     };
     
-    useEffect(() => {
-        getFiles().then((response) => {
-          setFileInfos(response.data);
-        });
-      }, []);
+    // useEffect(() => {
+    //     getFiles().then((response) => {
+    //       setFileInfos(response.data);
+    //     });
+    //   }, []);
 
       return (
         <div style={{marginTop: "70px", marginBottom: "100px"}}>
@@ -100,11 +100,11 @@ const UploadFiles = () => {
             <div className="card">
               <div className="card-header">List of Files</div>
               <ul className="list-group list-group-flush">
-                {fileInfos.map((file, index) => (
+                {/* {fileInfos.map((file, index) => (
                   <li className="list-group-item" key={index}>
                     <a href={file.url}>{file.name}</a>
                   </li>
-                ))}
+                ))} */}
               </ul>
             </div>
           )}

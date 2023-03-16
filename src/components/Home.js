@@ -35,7 +35,7 @@ const Home = () => {
           <div style={{ marginBottom: "25px" }}></div>
         </div>
         <br />
-        <Link to="/GenerateSummary">
+        <Link to="/TestUpload">
           <Button color='#abd4ff' text='Get started' />
         </Link> 
         <div style={{ marginBottom: "200px" }}></div>

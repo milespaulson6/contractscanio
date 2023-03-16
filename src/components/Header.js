@@ -11,12 +11,8 @@ const Header = () => {
           <Link to="/" className="navLink">
             <h3 style={{ marginLeft: "40px", marginTop: "0px", marginBottom: "15px"}}><IoIosFingerPrint /> Contractscan.io</h3>
           </Link>
-          <Link to="/GenerateSummary" className="navLink">
-            <h5 style={{ marginRight: "40px", marginTop: "0px", marginBottom: "15px"}}>Generate Summary</h5>
-          </Link>
-
-          <Link to="/FileUpload" className="navLink">
-            <h5 style={{ marginRight: "40px", marginTop: "0px", marginBottom: "15px"}}>File Upload</h5>
+          <Link to="/TestUpload" className="navLink">
+            <h5 style={{ marginRight: "40px", marginTop: "0px", marginBottom: "15px"}}>GenerateSummary</h5>
           </Link>
         </div>
       </>
