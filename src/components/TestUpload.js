@@ -12,7 +12,9 @@ class TestUpload extends React.Component {
         pk: 0,
         file: "",
         name: "",
-        contract_type: ""
+        contract_type: "",
+        results: "",
+        list: []
     };
 
     componentDidMount() {
@@ -31,8 +33,22 @@ class TestUpload extends React.Component {
         console.log('onFileChange', e.target.files[0])
     };
 
-    newContract = e => {
+    buildList() {
+        const resultsList = Array.from(this.state.results['results']['results']['you will <verb>']);
 
+        console.log('result list: ', resultsList);
+
+        const listItems = resultsList.map((number) => 
+            
+            <li key={number.toString()}>{number}</li>
+        );
+        this.state.list = resultsList;
+        console.log(listItems);
+    };
+
+    newContract = async (e) => {
+
+        
         if (this.state.file) {
             console.log("there was a file added");
 
@@ -41,13 +57,30 @@ class TestUpload extends React.Component {
             formData.append('name', this.state.name);
             formData.append('contract_type', this.state.contract_type);
 
+            console.log(this.state.file);
+
             e.preventDefault();
-            axios.post(API_URL, formData).then(() => {
+
+            const response = await axios.post(API_URL, formData);/*.then(() => {
+                
                 this.props.resetState();
                 this.props.toggle();
-            });
+            });*/
+            // console.log(response.data);
+            if(response.data)
+            {
+                console.log('it works!');
+                // console.log(response.data);
+            }
+            this.state.results = response.data;
+            const keys = Object.keys(this.state.results['results']['results']['you will <verb>'][0]);
+            console.log('these are the results: ', this.state.results['results']['results']['you will <verb>']);
+            
+            this.buildList();
         };
-    }
+    };
+
+
 
     defaultIfEmpty = value => {
         return value === "" ? "" : value;
@@ -58,6 +91,15 @@ class TestUpload extends React.Component {
         <div>
             <div style={{ marginTop: "30px", marginLeft: "50px", color: "#607d8b" }}>
                 <Link to='/' className='navLink'><IoIosArrowRoundBack /> Go Back</Link>
+                {/* <p>{this.state.results['results']['results']}</p> */}
+                <ol>
+                    {
+                        this.state.list.map((number) => (
+                            
+                            <li>{number}</li>
+                        ))
+                    }
+                </ol>
             </div>
 
             <div style={{marginTop: "50px", marginBottom: "100px"}} className="container">
@@ -104,6 +146,7 @@ class TestUpload extends React.Component {
                         <Button>Send</Button>
                     </Form>
                 </div>
+                
             </div>
         </div>
     );
