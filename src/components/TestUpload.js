@@ -3,9 +3,12 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { Link } from 'react-router-dom'
 import {IoIosFingerPrint, IoIosArrowRoundBack} from "react-icons/io";
 
+import PrintResults from './PrintResults';
+
 import axios from "axios";
 
 import { API_URL } from "../constants";
+
 
 class TestUpload extends React.Component {
     state = {
@@ -17,6 +20,11 @@ class TestUpload extends React.Component {
         list: []
     };
 
+    constructor(props) {
+        super(props);
+        this.newContract = this.newContract.bind(this);
+    }
+
     componentDidMount() {
         if (this.props.contract) {
         const { pk, file, name, contract_type } = this.props.contract;
@@ -26,38 +34,36 @@ class TestUpload extends React.Component {
 
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
+        this.newContract.bind(this);
     };
 
-    onFileChange = e => {
+    onFileChange = e => { 
         this.setState({ [e.target.name]: e.target.files[0] });
-        console.log('onFileChange', e.target.files[0])
     };
 
     buildList() {
-        const resultsList = Array.from(this.state.results['results']['results']['you will <verb>']);
+        const rList = Array.from(this.state.list['you will <verb>']);
+        console.log('rList: ', typeof rList, rList);
 
-        console.log('result list: ', resultsList);
-
-        const listItems = resultsList.map((number) => 
-            
-            <li key={number.toString()}>{number}</li>
+        return (
+            <div>
+                {rList.map(oneList => <newContract {...oneList}/>)}
+            </div>
         );
-        this.state.list = resultsList;
-        console.log(listItems);
     };
 
     newContract = async (e) => {
 
         
         if (this.state.file) {
-            console.log("there was a file added");
+            // console.log("there was a file added");
 
             const formData = new FormData();
             formData.append('file', this.state.file);            
             formData.append('name', this.state.name);
             formData.append('contract_type', this.state.contract_type);
 
-            console.log(this.state.file);
+            // console.log(this.state.file);
 
             e.preventDefault();
 
@@ -70,13 +76,25 @@ class TestUpload extends React.Component {
             if(response.data)
             {
                 console.log('it works!');
-                // console.log(response.data);
+                console.log(response.data);
             }
             this.state.results = response.data;
-            const keys = Object.keys(this.state.results['results']['results']['you will <verb>'][0]);
-            console.log('these are the results: ', this.state.results['results']['results']['you will <verb>']);
+        
+            // console.log('these are the results: ', this.state.results['results']['results']['you will <verb>'][0]);
+
+            
+            this.state.list = this.state.results['results']['results'];
+
+            const oneResult = this.state.list.props;
+            console.log('one result: ', this.state.list);
             
             this.buildList();
+
+            return (
+                <div>
+                    <h3>{oneResult['you will <verb>']}</h3>
+                </div>
+            )
         };
     };
 
@@ -93,12 +111,8 @@ class TestUpload extends React.Component {
                 <Link to='/' className='navLink'><IoIosArrowRoundBack /> Go Back</Link>
                 {/* <p>{this.state.results['results']['results']}</p> */}
                 <ol>
-                    {
-                        this.state.list.map((number) => (
-                            
-                            <li>{number}</li>
-                        ))
-                    }
+                    <li>hi</li>
+                    {/* <this.buildList/> */}
                 </ol>
             </div>
 
