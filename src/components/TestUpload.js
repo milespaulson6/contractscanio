@@ -3,23 +3,22 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { Link } from 'react-router-dom'
 import {IoIosFingerPrint, IoIosArrowRoundBack} from "react-icons/io";
 
-import PrintResults from './PrintResults';
-
 import axios from "axios";
 
 import { API_URL } from "../constants";
 
+var apiResponse = [];
 
 class TestUpload extends React.Component {
+
+    
     state = {
         pk: 0,
         file: "",
         name: "",
-        contract_type: "",
-        results: "",
-        list: []
+        contract_type: "",  
     };
-
+    
     constructor(props) {
         super(props);
         this.newContract = this.newContract.bind(this);
@@ -40,64 +39,76 @@ class TestUpload extends React.Component {
     onFileChange = e => { 
         this.setState({ [e.target.name]: e.target.files[0] });
     };
-
-    buildList() {
-        const rList = Array.from(this.state.list['you will <verb>']);
-        console.log('rList: ', typeof rList, rList);
-
-        return (
-            <div>
-                {rList.map(oneList => <newContract {...oneList}/>)}
-            </div>
-        );
-    };
+    // onSubmit = e => { 
+    //     this.setState({ [e.target.name]: e.target.files[0] });
+    // };
 
     newContract = async (e) => {
-
-        
+    
         if (this.state.file) {
-            // console.log("there was a file added");
+            console.log("there was a file added");
 
             const formData = new FormData();
             formData.append('file', this.state.file);            
             formData.append('name', this.state.name);
             formData.append('contract_type', this.state.contract_type);
 
-            // console.log(this.state.file);
+            console.log(this.state.file);
 
             e.preventDefault();
 
             const response = await axios.post(API_URL, formData);/*.then(() => {
-                
                 this.props.resetState();
                 this.props.toggle();
             });*/
-            // console.log(response.data);
+
             if(response.data)
             {
                 console.log('it works!');
-                console.log(response.data);
+                console.log('response,data,' , (response.data));
             }
-            this.state.results = response.data;
-        
-            // console.log('these are the results: ', this.state.results['results']['results']['you will <verb>'][0]);
+            var apiResults = Array.from(response.data['results']['results']['you will <verb>']);        
+            // console.log("apiResults array: ", apiResults);
+            const oneResult = apiResults.props;
 
+            //const bTeams = Array.from(['you’ll find an overview of your  total compensation', 'You will be required to pass a background check as a condition of employment']);
+            //console.log("bTeams props: ", bTeams);
             
-            this.state.list = this.state.results['results']['results'];
+            apiResponse = apiResults;
 
-            const oneResult = this.state.list.props;
-            console.log('one result: ', this.state.list);
-            
             this.buildList();
 
             return (
-                <div>
-                    <h3>{oneResult['you will <verb>']}</h3>
-                </div>
+                
+                    <li>{oneResult}</li>
+                
             )
         };
     };
 
+   
+    
+
+    buildList() {
+        // let items = []
+        // for (let i = 0; i < apiResults.length; i++) {
+        //     items.push(apiResults[i]);
+        // }
+        const spartanG = Array.from(apiResponse);
+
+        console.log("apiResults array: ", spartanG);
+
+        return (
+            <div>
+                
+                {/* {spartanG.map((dogs) => (
+                    <li key={dogs}>{dogs}</li>
+                ))} */}
+                <p>{spartanG[0]}</p>
+                
+            </div>
+        );
+    };
 
 
     defaultIfEmpty = value => {
@@ -110,10 +121,9 @@ class TestUpload extends React.Component {
             <div style={{ marginTop: "30px", marginLeft: "50px", color: "#607d8b" }}>
                 <Link to='/' className='navLink'><IoIosArrowRoundBack /> Go Back</Link>
                 {/* <p>{this.state.results['results']['results']}</p> */}
-                <ol>
-                    <li>hi</li>
-                    {/* <this.buildList/> */}
-                </ol>
+                <ul>
+                    <this.buildList />
+                </ul>
             </div>
 
             <div style={{marginTop: "50px", marginBottom: "100px"}} className="container">

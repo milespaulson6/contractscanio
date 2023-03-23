@@ -5,7 +5,6 @@ import Home from './components/Home';
 import PresentSummary from './components/PresentSummary';
 import TestUpload from './components/TestUpload';
 import Footer from './components/Footer';
-import PrintResults from './components/PrintResults';
 
 const App = () => {
   return (
@@ -27,7 +26,6 @@ const App = () => {
         {/* Add present summary component */}
         <Route path='/PresentSummary' element = {<PresentSummary />} />
 
-        <Route path='/PrintResults' element = {<PrintResults />} />
       </Routes>   
       <Footer />
     </Router>
