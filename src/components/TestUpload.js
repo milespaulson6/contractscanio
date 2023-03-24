@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import {IoIosFingerPrint, IoIosArrowRoundBack} from "react-icons/io";
+import Response from "./Response";
 
 import axios from "axios";
 
@@ -11,18 +12,20 @@ var apiResponse = [];
 
 class TestUpload extends React.Component {
 
-    
     state = {
         pk: 0,
         file: "",
         name: "",
         contract_type: "",  
+        results: {}
     };
+
     
-    constructor(props) {
-        super(props);
-        this.newContract = this.newContract.bind(this);
-    }
+    
+    // constructor(props) {
+    //     super(props);
+    //     this.newContract = this.newContract.bind(this);
+    // }
 
     componentDidMount() {
         if (this.props.contract) {
@@ -33,7 +36,7 @@ class TestUpload extends React.Component {
 
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
-        this.newContract.bind(this);
+        // this.newContract.bind(this);
     };
 
     onFileChange = e => { 
@@ -44,6 +47,7 @@ class TestUpload extends React.Component {
     // };
 
     newContract = async (e) => {
+        console.log("newContract called");
     
         if (this.state.file) {
             console.log("there was a file added");
@@ -62,6 +66,11 @@ class TestUpload extends React.Component {
                 this.props.toggle();
             });*/
 
+            
+
+            this.setState({results: response.data['results']['results']});
+            console.log("object keys: ", Object.keys(this.state.results));
+
             if(response.data)
             {
                 console.log('it works!');
@@ -69,18 +78,26 @@ class TestUpload extends React.Component {
             }
             var apiResults = Array.from(response.data['results']['results']['you will <verb>']);        
             // console.log("apiResults array: ", apiResults);
-            const oneResult = apiResults.props;
+            // const oneResult = apiResults.props;
 
             //const bTeams = Array.from(['you’ll find an overview of your  total compensation', 'You will be required to pass a background check as a condition of employment']);
             //console.log("bTeams props: ", bTeams);
             
             apiResponse = apiResults;
+            let gfat = "AHHHHHHHH"
+            
+            Response(apiResponse);
 
-            this.buildList();
+            // const [result, setResult] = useState('');
+
+            // const handleSubmit = e => {
+            //     e.preventDefault();
+            //     setResult("results: ", {apiResponse});
+            // }
 
             return (
-                
-                    <li>{oneResult}</li>
+                <div></div>
+                    // <li>{oneResult}</li>
                 
             )
         };
@@ -89,7 +106,7 @@ class TestUpload extends React.Component {
    
     
 
-    buildList() {
+    buildList(apiResponse) {
         // let items = []
         // for (let i = 0; i < apiResults.length; i++) {
         //     items.push(apiResults[i]);
@@ -100,11 +117,10 @@ class TestUpload extends React.Component {
 
         return (
             <div>
-                
-                {/* {spartanG.map((dogs) => (
+                {spartanG.map(dog => <li key={dog}>{dog}</li>)}
+                {/* { {spartanG.map((dogs) => (
                     <li key={dogs}>{dogs}</li>
-                ))} */}
-                <p>{spartanG[0]}</p>
+                ))} } */}
                 
             </div>
         );
@@ -120,10 +136,20 @@ class TestUpload extends React.Component {
         <div>
             <div style={{ marginTop: "30px", marginLeft: "50px", color: "#607d8b" }}>
                 <Link to='/' className='navLink'><IoIosArrowRoundBack /> Go Back</Link>
-                {/* <p>{this.state.results['results']['results']}</p> */}
-                <ul>
-                    <this.buildList />
-                </ul>
+                <br />
+
+                <div>
+                    {
+                        
+                        Object.keys(this.state.results).map(dog => 
+                            <h2 key={dog}>{dog}</h2>
+
+                            //this.state.results[{dog3}].map( dog2 => 
+                                //<li key={dog2}> { dog2 } </li>
+                        
+                           // ) )
+                    )}
+                </div>
             </div>
 
             <div style={{marginTop: "50px", marginBottom: "100px"}} className="container">
@@ -172,6 +198,7 @@ class TestUpload extends React.Component {
                 </div>
                 
             </div>
+            {this.result && <div>{this.result}</div>}
         </div>
     );
   }
