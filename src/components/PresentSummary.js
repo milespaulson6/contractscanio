@@ -47,9 +47,7 @@ class PresentSummary extends Component {
                     <p><IoIosFingerPrint className="textColor" /> Something cool will be here</p>
                     
                     {/* TODO: add summary stuff here */}
-                    {/* <div>
-                        <input accept="application/pdf" type="file" onChange={(event) => {this.upload(event)}} />
-                    </div>                   */}
+
                     <div style={{ marginBottom: "200px" }}></div>
                 </div>
             </div>
