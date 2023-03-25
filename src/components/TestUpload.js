@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { Link } from 'react-router-dom';
 import {IoIosFingerPrint, IoIosArrowRoundBack} from "react-icons/io";
-import PresentSummary from "./PresentSummary";
 import axios from "axios";
 import { API_URL } from "../constants";
 
@@ -25,7 +24,7 @@ class TestUpload extends React.Component {
 
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
-        // this.newContract.bind(this);
+        this.newContract.bind(this);
     };
 
     onFileChange = e => { 
@@ -33,66 +32,22 @@ class TestUpload extends React.Component {
     };
 
     newContract = async (e) => {
-        console.log("newContract called");
-    
+        
+        // if a file was added, append to form data and send to API    
         if (this.state.file) {
-            console.log("there was a file added");
-
             const formData = new FormData();
             formData.append('file', this.state.file);            
             formData.append('name', this.state.name);
             formData.append('contract_type', this.state.contract_type);
-
-            console.log(this.state.file);
-
             e.preventDefault();
 
-            const response = await axios.post(API_URL, formData);/*.then(() => {
-                this.props.resetState();
-                this.props.toggle();
-            });*/
-
+            // return results back from API
+            const response = await axios.post(API_URL, formData);
             
-
+            // set the API results in the state
             this.setState({results: response.data['results']['results']});
-            console.log("object keys: ", Object.keys(this.state.results));
-
-            if(response.data)
-            {
-                console.log('it works!');
-                console.log('response,data,' , (response.data));
-            }
-            var apiResults = Array.from(response.data['results']['results']['you will <verb>']);        
-            
-            Response(apiResults);
-
-            return (
-                <div></div>
-                    // <li>{oneResult}</li>
-                
-            )
         };
     };
-
-   
-    
-
-    buildList(apiResponse) {
-        const spartanG = Array.from(apiResponse);
-
-        console.log("apiResults array: ", spartanG);
-
-        return (
-            <div>
-                {spartanG.map(dog => <li key={dog}>{dog}</li>)}
-                {/* { {spartanG.map((dogs) => (
-                    <li key={dogs}>{dogs}</li>
-                ))} } */}
-                
-            </div>
-        );
-    };
-
 
     defaultIfEmpty = value => {
         return value === "" ? "" : value;
@@ -101,24 +56,13 @@ class TestUpload extends React.Component {
   render() {
     return (
         <div>
+            {/* back arrow */}
             <div style={{ marginTop: "30px", marginLeft: "50px", color: "#607d8b" }}>
                 <Link to='/' className='navLink'><IoIosArrowRoundBack /> Go Back</Link>
-                <br />
-                
-                <div style={{marginTop: "50px", marginBottom: "100px"}} className="container">
-                    <ol>
-                        {
-
-                            Object.entries(this.state.results)
-                            .map( ([key, value]) => <li key={key}>{key}: {value
-                                .map(item => <li key={item}>{item}</li>)}</li>)
-
-                        }
-                    </ol>
-                </div>
-                
+                <br />                
             </div>
 
+            {/* Form to upload document */}
             <div style={{marginTop: "50px", marginBottom: "100px"}} className="container">
                 <div className="text-center">
                     <h2 style={{ marginTop: "10px", marginBottom: "20px", color: "#607d8b" }}>Generate contract summary here</h2>
@@ -127,7 +71,8 @@ class TestUpload extends React.Component {
                         doesn't store any information uploaded to our site.</h5>
                     <br />
                 </div>
-                <div style={{marginTop: "20px", marginBottom: "100px", marginLeft: "100px", marginRight: "100px"}} >
+
+                <div style={{marginTop: "20px", marginBottom: "50px", marginLeft: "100px", marginRight: "100px"}} >
                     <Form onSubmit={ this.newContract}>
                         <FormGroup>
                         <Label for="name">Name of contract:</Label>
@@ -156,16 +101,28 @@ class TestUpload extends React.Component {
                                 this.onFileChange(event)
                                 this.value = this.defaultIfEmpty(this.state.file)
                             }}
-                            // value={this.defaultIfEmpty(this.state.file)}
                         />
                         </FormGroup>
-                        <br />
-                        <Button>Send</Button>
+                        <br />                        
+                            <Button>Send</Button>
                     </Form>
-                </div>
-                
+                </div>                
             </div>
-            {this.result && <div>{this.result}</div>}
+
+            {/* Container to show results */}
+            <div className="container">
+                <div className="text-center">
+                    <h2 style={{ marginTop: "10px", marginBottom: "20px", color: "#607d8b" }}>View summary here</h2>
+                </div>
+                <div>
+                    {
+                        Object.entries(this.state.results)
+                        .map( ([key, value]) => <ol key={key}><strong>{key}:</strong> {value
+                            .map(item => <li key={item}>{item}</li>)}</ol>)
+                    }
+                </div>
+            </div>
+
         </div>
     );
   }

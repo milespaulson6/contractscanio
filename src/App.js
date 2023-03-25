@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header';
 import Home from './components/Home';
-import PresentSummary from './components/PresentSummary';
 import TestUpload from './components/TestUpload';
 import Footer from './components/Footer';
 
@@ -22,9 +21,6 @@ const App = () => {
         
         {/* Add generate summary component */}
         <Route path='/TestUpload' exact element = {<TestUpload />} />
-
-        {/* Add present summary component */}
-        <Route path='/PresentSummary' element = {<PresentSummary />} />
 
       </Routes>   
       <Footer />
