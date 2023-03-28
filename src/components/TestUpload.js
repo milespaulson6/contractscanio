@@ -9,7 +9,6 @@ class TestUpload extends React.Component {
   state = {
     pk: 0,
     file: "",
-    name: "",
     contract_type: "",
     results: {},
     progress: 0,
@@ -17,8 +16,8 @@ class TestUpload extends React.Component {
 
   componentDidMount() {
     if (this.props.contract) {
-      const { pk, file, name, contract_type } = this.props.contract;
-      this.setState({ pk, file, name, contract_type });
+      const { pk, file, contract_type } = this.props.contract;
+      this.setState({ pk, file, contract_type });
     }
   }
 
@@ -36,10 +35,10 @@ class TestUpload extends React.Component {
     if (this.state.file) {
       const formData = new FormData();
       formData.append("file", this.state.file);
-      formData.append("name", this.state.name);
       formData.append("contract_type", this.state.contract_type);
       e.preventDefault();
 
+      // set progress bar
       this.setState({ progress: 50 });
 
       // return results back from API
@@ -104,15 +103,6 @@ class TestUpload extends React.Component {
             }}
           >
             <Form onSubmit={this.newContract}>
-              <FormGroup>
-                <Label for="name">Name of contract:</Label>
-                <Input
-                  type="text"
-                  name="name"
-                  onChange={this.onChange}
-                  value={this.defaultIfEmpty(this.state.name)}
-                />
-              </FormGroup>
               <FormGroup>
                 <Label for="contract_type">Type of contract:</Label>
                 <Input
