@@ -53,8 +53,6 @@ const Home = () => {
         </Link>
         <div style={{ marginBottom: "200px" }}></div>
       </div>
-
-      <a href="./TestUpload">Test Upload</a>
     </div>
   );
 };

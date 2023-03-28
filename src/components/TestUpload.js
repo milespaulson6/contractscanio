@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
 import { IoIosFingerPrint, IoIosArrowRoundBack } from "react-icons/io";
 import axios from "axios";
 import { API_URL } from "../constants";
+import { ThreeDots } from "react-loader-spinner";
 
 class TestUpload extends React.Component {
   state = {
@@ -12,6 +13,26 @@ class TestUpload extends React.Component {
     contract_type: "",
     results: {},
     progress: 0,
+    loading: false,
+  };
+
+  LoadingIndicator = () => {
+    if (this.state.loading)
+      return (
+        <div>
+          <div
+            style={{
+              width: "100%",
+              height: "100",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ThreeDots color="#607d8b" height="100" width="100" />
+          </div>
+        </div>
+      );
   };
 
   componentDidMount() {
@@ -39,14 +60,15 @@ class TestUpload extends React.Component {
       e.preventDefault();
 
       // set progress bar
-      this.setState({ progress: 50 });
+      this.setState({ progress: 0 });
 
       // return results back from API
-      const response = await axios.post(API_URL, formData);
-
-      if (response) {
-        this.setState({ progress: 100 });
-      }
+      const response = await axios
+        .post(API_URL, formData)
+        .then(this.setState({ loading: true }))
+        .finally(() => {
+          this.setState({ loading: false });
+        });
 
       // set the API results in the state
       this.setState({ results: response.data["results"]["results"] });
@@ -130,23 +152,8 @@ class TestUpload extends React.Component {
             </Form>
           </div>
 
-          {/* Progress bar */}
-          <div style={{ marginTop: "70px", marginBottom: "100px" }}>
-            {this.state.file && (
-              <div className="progress mb-3">
-                <div
-                  className="progress-bar progress-bar-info progress-bar-striped"
-                  role="progressbar"
-                  aria-valuenow={this.state.progress}
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  style={{ width: this.state.progress + "%" }}
-                >
-                  {this.state.progress}%
-                </div>
-              </div>
-            )}
-          </div>
+          {/* Loading dots */}
+          <this.LoadingIndicator />
         </div>
 
         {/* Container to show results */}
@@ -163,14 +170,23 @@ class TestUpload extends React.Component {
             </h2>
           </div>
           <div>
-            {Object.entries(this.state.results).map(([key, value]) => (
-              <ol key={key}>
-                <strong>{key}:</strong>{" "}
-                {value.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ol>
-            ))}
+            <div
+              style={{
+                marginTop: "50px",
+                marginBottom: "50px",
+                marginLeft: "75px",
+                marginRight: "75px",
+              }}
+            >
+              {Object.entries(this.state.results).map(([key, value]) => (
+                <ol key={key}>
+                  <strong>{key}:</strong>{" "}
+                  {value.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ol>
+              ))}
+            </div>
           </div>
         </div>
       </div>
