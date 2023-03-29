@@ -15,7 +15,7 @@ export default function App() {
               </h6>
               <p>
                 We're here to help make understanding legal documents easy.
-                Whether it be an employment offer or a loan agreement,
+                Whether it be an employment contract or a loan agreement,
                 Contractscan.io helps you quickly extract the most important
                 information from these documents and have confidence in signing
                 your name.

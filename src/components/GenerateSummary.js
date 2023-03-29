@@ -30,6 +30,7 @@ class TestUpload extends React.Component {
               color: "#607d8b",
             }}
           >
+            <br />
             Generating your summary (this may take a minute)
           </p>
           <div
@@ -57,7 +58,7 @@ class TestUpload extends React.Component {
             <div className="text-center">
               <h2
                 style={{
-                  marginTop: "10px",
+                  marginTop: "30px",
                   color: "#607d8b",
                 }}
               >
@@ -76,15 +77,91 @@ class TestUpload extends React.Component {
                 }}
               >
                 {Object.entries(this.state.results).map(([key, value]) => (
-                  <ol key={key}>
+                  <div>
+                    <ol key={key}>
+                      <strong>{key}:</strong>
+                      {value.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ol>
                     <br />
-                    <strong>{key}:</strong>
-                    {value.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ol>
+                  </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </>
+      );
+  };
+
+  // shows form to upload contract here
+  UploadForm = () => {
+    if (!this.state.uploaded)
+      return (
+        <>
+          {/* Form to upload document */}
+          <div style={{ marginTop: "30px" }} className="container">
+            <div className="text-center">
+              <h2
+                style={{
+                  marginTop: "20px",
+                  marginBottom: "0px",
+                  color: "#607d8b",
+                }}
+              >
+                Generate contract summary here
+              </h2>
+              <br />
+              <h6>
+                <IoIosFingerPrint className="textColor" /> Submit a file below.
+                Rest assured, contractscan.io doesn't store any information
+                uploaded to our site.
+              </h6>
+              <br />
+            </div>
+
+            <div
+              style={{
+                marginTop: "10px",
+                marginBottom: "10px",
+                marginLeft: "100px",
+                marginRight: "150px",
+              }}
+            >
+              <Form onSubmit={this.newContract}>
+                <FormGroup>
+                  <Label for="contract_type">Type of contract:</Label>
+                  <Input
+                    type="select"
+                    name="contract_type"
+                    onChange={this.onChange}
+                    value={this.defaultIfEmpty(this.state.contract_type)}
+                  >
+                    <option>Choose one</option>
+                    <option>Employment contract</option>
+                    <option>Rental contract</option>
+                    <option>Mortgage agreement</option>
+                    <option>Lease agreement</option>
+                    <option>Other</option>
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="file">
+                    Upload file (only accepts *.pdf files):
+                  </Label>
+                  <Input
+                    type="file"
+                    name="file"
+                    onChange={(event) => {
+                      this.onFileChange(event);
+                      this.value = this.defaultIfEmpty(this.state.file);
+                    }}
+                  />
+                </FormGroup>
+                <br />
+                <Button>Submit</Button>
+                <br />
+              </Form>
             </div>
           </div>
         </>
@@ -147,71 +224,7 @@ class TestUpload extends React.Component {
           </Link>
           <br />
         </div>
-
-        {/* Form to upload document */}
-        <div style={{ marginTop: "30px" }} className="container">
-          <div className="text-center">
-            <h2
-              style={{
-                marginTop: "10px",
-                marginBottom: "0px",
-                color: "#607d8b",
-              }}
-            >
-              Generate contract summary here
-            </h2>
-            <br />
-            <h6>
-              <IoIosFingerPrint className="textColor" /> Submit a file and your
-              summary will appear below. Rest assured, contractscan.io doesn't
-              store any information uploaded to our site.
-            </h6>
-            <br />
-          </div>
-
-          <div
-            style={{
-              marginTop: "10px",
-              marginBottom: "10px",
-              marginLeft: "150px",
-              marginRight: "700px",
-            }}
-          >
-            <Form onSubmit={this.newContract}>
-              <FormGroup>
-                <Label for="contract_type">Type of contract:</Label>
-                <Input
-                  type="select"
-                  name="contract_type"
-                  onChange={this.onChange}
-                  value={this.defaultIfEmpty(this.state.contract_type)}
-                >
-                  <option>Choose one</option>
-                  <option>Employment contract</option>
-                  <option>Rental contract</option>
-                  <option>Mortgage agreement</option>
-                  <option>Lease agreement</option>
-                  <option>Other</option>
-                </Input>
-              </FormGroup>
-              <FormGroup>
-                <Label for="file">
-                  Upload file (only accepts *.pdf files):
-                </Label>
-                <Input
-                  type="file"
-                  name="file"
-                  onChange={(event) => {
-                    this.onFileChange(event);
-                    this.value = this.defaultIfEmpty(this.state.file);
-                  }}
-                />
-              </FormGroup>
-              <br />
-              <Button>Submit</Button>
-            </Form>
-          </div>
-        </div>
+        <this.UploadForm />
         <this.PresentSummary />
       </div>
     );
