@@ -1,52 +1,52 @@
-import React, { Component } from "react";
+import React from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
 import { IoIosFingerPrint, IoIosArrowRoundBack } from "react-icons/io";
 import axios from "axios";
 import { API_URL } from "../constants";
-import { ThreeDots } from "react-loader-spinner";
+// import { ThreeDots } from "react-loader-spinner";
 
-class TestUpload extends Component {
+export default class TestUpload extends React.Component {
   state = {
     pk: 0,
     file: "",
     contract_type: "",
     results: {},
     progress: 0,
-    loading: false,
+    // loading: false,
     uploaded: false,
   };
 
   // shows loading dots while awaiting API response
-  LoadingIndicator = () => {
-    if (this.state.loading)
-      return (
-        <>
-          <p
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "#607d8b",
-            }}
-          >
-            <br />
-            Generating your summary (this may take a minute)
-          </p>
-          <div
-            style={{
-              width: "100%",
-              height: "100",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <ThreeDots color="#607d8b" height="100" width="100" />
-          </div>
-        </>
-      );
-  };
+  // LoadingIndicator = () => {
+  //   if (this.state.loading)
+  //     return (
+  //       <>
+  //         <p
+  //           style={{
+  //             display: "flex",
+  //             justifyContent: "center",
+  //             alignItems: "center",
+  //             color: "#607d8b",
+  //           }}
+  //         >
+  //           <br />
+  //           Generating your summary (this may take a minute)
+  //         </p>
+  //         <div
+  //           style={{
+  //             width: "100%",
+  //             height: "100",
+  //             display: "flex",
+  //             justifyContent: "center",
+  //             alignItems: "center",
+  //           }}
+  //         >
+  //           <ThreeDots color="#607d8b" height="100" width="100" />
+  //         </div>
+  //       </>
+  //     );
+  // };
 
   // shows results on the page
   PresentSummary = () => {
@@ -66,7 +66,7 @@ class TestUpload extends Component {
               </h2>
             </div>
             {/* Loading dots */}
-            <this.LoadingIndicator />
+            {/* <this.LoadingIndicator /> */}
             <div>
               <div
                 style={{
@@ -192,17 +192,19 @@ class TestUpload extends Component {
       formData.append("contract_type", this.state.contract_type);
       e.preventDefault();
 
-      // set uploaded to true to show View Summary on page
-      this.setState({ uploaded: true });
-
-      this.setState({ loading: true });
+      // this.setState({ loading: true });
       // return results back from API
       const response = await axios.post(API_URL, formData);
-
-      this.setState({ loading: false });
+      // this.setState({ loading: false });
 
       // set the API results in the state
       this.setState({ results: response.data["results"]["results"] });
+      console.log(response.data["results"]["results"]);
+      console.log(this.state.results);
+      console.log(this.state.uploaded);
+      // console.log(this.state.loading);
+      // set uploaded to true to show View Summary on page
+      this.setState({ uploaded: true });
     }
   };
 
@@ -228,5 +230,3 @@ class TestUpload extends Component {
     );
   }
 }
-
-export default TestUpload;
