@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { Link } from "react-router-dom";
 import { IoIosFingerPrint, IoIosArrowRoundBack } from "react-icons/io";
@@ -6,7 +6,7 @@ import axios from "axios";
 import { API_URL } from "../constants";
 import { ThreeDots } from "react-loader-spinner";
 
-class TestUpload extends React.Component {
+class TestUpload extends Component {
   state = {
     pk: 0,
     file: "",
@@ -77,8 +77,8 @@ class TestUpload extends React.Component {
                 }}
               >
                 {Object.entries(this.state.results).map(([key, value]) => (
-                  <div>
-                    <ol key={key}>
+                  <div key={key}>
+                    <ol>
                       <strong>{key}:</strong>
                       {value.map((item) => (
                         <li key={item}>{item}</li>
@@ -168,12 +168,12 @@ class TestUpload extends React.Component {
       );
   };
 
-  componentDidMount() {
-    if (this.props.contract) {
-      const { pk, file, contract_type } = this.props.contract;
-      this.setState({ pk, file, contract_type });
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.contract) {
+  //     const { pk, file, contract_type } = this.props.contract;
+  //     this.setState({ pk, file, contract_type });
+  //   }
+  // }
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -195,13 +195,11 @@ class TestUpload extends React.Component {
       // set uploaded to true to show View Summary on page
       this.setState({ uploaded: true });
 
+      this.setState({ loading: true });
       // return results back from API
-      const response = await axios
-        .post(API_URL, formData)
-        .then(this.setState({ loading: true }))
-        .finally(() => {
-          this.setState({ loading: false });
-        });
+      const response = await axios.post(API_URL, formData);
+
+      this.setState({ loading: false });
 
       // set the API results in the state
       this.setState({ results: response.data["results"]["results"] });
